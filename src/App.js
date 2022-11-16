@@ -16,37 +16,6 @@ import { Auth, Hub } from 'aws-amplify';
 
 function App() {
 
-  useEffect(() => {
-    Hub.listen('auth', ({ payload: { event, data } }) => {
-      switch (event) {
-        case 'signIn':
-          
-        case 'cognitoHostedUI':
-
-          break;
-        case 'signOut':
-          
-          break;
-        case 'signUp':
-          
-
-          break;
-        case 'signIn_failure':
-        case 'cognitoHostedUI_failure':
-
-          break;
-      }
-    });
-
-    getUser();
-
-    function getUser() {
-      return Auth.currentAuthenticatedUser()
-        .then((user) => user )
-        .catch(err=>err);
-    }
-
-  }, []);
 
   return (
     
