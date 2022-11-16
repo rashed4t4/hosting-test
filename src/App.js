@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { Routes, Route } from 'react-router-dom';
+import Services from './pages/Services';
+import Home from './pages/Home';
+import About from './pages/About';
+import Profile from './pages/Profile';
+import NoMatch from './pages/404';
+import FAQ from './pages/FAQ';
+import Contact from './pages/Contact';
+import Dashboard from './pages/Dashboard';
+
+import { Authenticator } from '@aws-amplify/ui-react';
+
 function App() {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/about" element={<About/>} />       
+        <Route path="/services" element={<Services/>} />
+        <Route path="/faq" element={<FAQ/>} /> 
+        <Route path="/contact" element={<Contact/>} /> 
+        <Route path="/dashboard" element={<Authenticator><Dashboard/></Authenticator>} /> 
+        <Route path="/profile" element={<Authenticator><Profile/></Authenticator>} />
+        <Route path="*" element={<NoMatch/>} />
+        <Route path="/login" element={<Authenticator/>} />    
+
+      </Routes>
+    
   );
 }
 

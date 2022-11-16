@@ -17,6 +17,9 @@
           "appId": "d25duke3n6pwjp",
           "type": "cicd"
         }
+      },
+      "auth": {
+        "hostingtest21ee52f3": {}
       }
     }
   }
