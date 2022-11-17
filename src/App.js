@@ -13,38 +13,35 @@ import Dashboard from './pages/Dashboard';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
 import { Auth, Hub } from 'aws-amplify';
+import { fetchUser } from './slices/userSlice';
+import { signedIn, signedOut, justSignedUp } from './slices/userSlice';
+import { useDispatch } from 'react-redux';
 
 function App() {
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
-          
-        case 'cognitoHostedUI':
-
+          dispatch(fetchUser())
+          console.log("signedin")
           break;
         case 'signOut':
-          
+          dispatch(signedOut())
+          console.log("out")
           break;
         case 'signUp':
-          
-
+          dispatch(fetchUser())
+          dispatch(justSignedUp())
+          console.log("just")
           break;
-        case 'signIn_failure':
-        case 'cognitoHostedUI_failure':
-
-          break;
+        
       }
-    });
+    }); 
+    dispatch(fetchUser())
 
-    getUser();
-
-    function getUser() {
-      return Auth.currentAuthenticatedUser()
-        .then((user) => user )
-        .catch(err=>err);
-    }
 
   }, []);
 

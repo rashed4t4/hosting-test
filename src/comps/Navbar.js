@@ -5,9 +5,12 @@ import './navbar.css';
 import { NavLink, Link, useNavigate} from "react-router-dom"
 import { Button, Flex, Divider, Image } from '@aws-amplify/ui-react';
 import { Auth } from 'aws-amplify';
+import { useSelector } from 'react-redux';
 
 function Navbar() {
   const navigate = useNavigate()
+  const userState = useSelector((state) => state.userState)
+
   return (
     <nav>
       <Flex
@@ -26,10 +29,10 @@ function Navbar() {
             <NavLink to='/about'>About</NavLink>
             <NavLink to='/contact'>Contact</NavLink>
             <NavLink to='/profile'>Profile</NavLink>
-            {!Auth.currentAuthenticatedUser() ? (
+            {!userState.authState  ? (
               <Link to='/login'><Button>Login</Button></Link>
               ):(
-                <Button onClick={()=>{Auth.signOut(); navigate('/')}}>Logout</Button>
+                <Button onClick={()=>{Auth.signOut().then(()=>navigate('/'))}}>Logout</Button>
               )
               }
       </Flex>
