@@ -13,9 +13,37 @@ import Dashboard from './pages/Dashboard';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { useEffect } from 'react';
 import { Auth, Hub } from 'aws-amplify';
+import { useDispatch } from 'react-redux';
+import { signedIn, signedOut, justSignedUp } from './slices/userSlice';
+import { fetchUser } from './slices/userSlice';
 
 function App() {
 
+  const dispatch = useDispatch()
+  useEffect(() => {
+    Hub.listen('auth', ({ payload: { event, data } }) => {
+      switch (event) {
+        case 'signIn':
+          dispatch(fetchUser())
+          console.log("signedin")
+          break;
+        case 'signOut':
+          dispatch(signedOut())
+          console.log("out")
+          break;
+        case 'signUp':
+          dispatch(fetchUser())
+          dispatch(justSignedUp())
+          console.log("just")
+          break;
+        
+      }
+    }); 
+
+    dispatch(fetchUser());
+
+
+  }, []);
 
   return (
     
