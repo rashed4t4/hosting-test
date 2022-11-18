@@ -41,7 +41,11 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
-    ]
+    ],
+    "aws_appsync_graphqlEndpoint": "https://ip4wahnjpba6rgx7g5twgwpvue.appsync-api.ap-south-1.amazonaws.com/graphql",
+    "aws_appsync_region": "ap-south-1",
+    "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
+    "aws_appsync_apiKey": "da2-jlgjtebxnfcbvfjq26wv2howqa"
 };
 
 

@@ -36,5 +36,40 @@
         ]
       }
     }
+  },
+  "api": {
+    "userAPI": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "hostingtest21ee52f3",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authhostingtest21ee52f3"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 90,
+                "apiKeyExpirationDate": "2023-02-15T21:51:34.351Z",
+                "description": "hosting-test"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

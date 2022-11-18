@@ -4,18 +4,18 @@ import { Auth } from 'aws-amplify'
 const initialState = {
   loading: false,
   justSignedUp: false,
-  authState: false,
+  isSignedIn: false,
   user: {},
-  error: '',
+  message: '',
 }
 
 export const fetchUser = createAsyncThunk('user/fetchUser', ()=>{
     return Auth.currentAuthenticatedUser().then((user) => user.attributes)
     
-})
+});
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: 'User',
   initialState,
   extraReducers: (builder) => {
     builder.addCase(fetchUser.pending, (state) => {
@@ -24,30 +24,36 @@ export const userSlice = createSlice({
     builder.addCase(fetchUser.fulfilled, (state, action) => {
         state.loading = false
         state.user = action.payload
-        state.authState = true
-        state.error = ''
+        state.isSignedIn = true
+        state.message = 'user fetched'
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
         state.loading = false
         state.user = {}
-        state.error = action.error.message
-        state.authState = 0
+        state.message = action.error.message
+        state.isSignedIn = false
     })
+
   },
 
   reducers: {
     signedIn: (state) => {
      
-      state.authState= 1
+      state.isSignedIn= true
     },
     signedOut: (state) => {
-      state.authState = 0
+      state.loading = false
+      state.isSignedIn = false
+      state.justSignedUp = false
       state.user = {}
-      state.error = 'user  signed out'
+      state.message = 'user  signed out'
     },
     justSignedUp: (state) => {
+      state.loading = false
       state.justSignedUp = true
-      state.authState = true
+      state.isSignedIn = true
+      state.user = {}
+      state.message = 'user just signed Up'
     },
   },
   

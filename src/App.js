@@ -10,12 +10,13 @@ import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 
-import { Authenticator } from '@aws-amplify/ui-react';
+
 import { useEffect } from 'react';
 import { Auth, Hub } from 'aws-amplify';
 import { fetchUser } from './slices/userSlice';
 import { signedIn, signedOut, justSignedUp } from './slices/userSlice';
 import { useDispatch } from 'react-redux';
+import WithAuthenticator from './comps/WithAuthenticator';
 
 function App() {
 
@@ -30,16 +31,16 @@ function App() {
           break;
         case 'signOut':
           dispatch(signedOut())
-          console.log("out")
           break;
         case 'signUp':
-          dispatch(fetchUser())
+          
           dispatch(justSignedUp())
-          console.log("just")
+          dispatch(fetchUser())
           break;
         
       }
     }); 
+    
     dispatch(fetchUser())
 
 
@@ -53,10 +54,10 @@ function App() {
         <Route path="/services" element={<Services/>} />
         <Route path="/faq" element={<FAQ/>} /> 
         <Route path="/contact" element={<Contact/>} /> 
-        <Route path="/dashboard" element={<Authenticator><Dashboard/></Authenticator>} /> 
-        <Route path="/profile" element={<Authenticator><Profile/></Authenticator>} />
+        <Route path="/dashboard" element={<WithAuthenticator><Dashboard/></WithAuthenticator>} /> 
+        <Route path="/profile" element={<WithAuthenticator><Profile/></WithAuthenticator>} />
         <Route path="*" element={<NoMatch/>} />
-        <Route path="/login" element={<Authenticator/>} />    
+        <Route path="/login" element={<WithAuthenticator/>} />    
 
       </Routes>
     

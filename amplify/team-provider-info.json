@@ -20,6 +20,9 @@
       },
       "auth": {
         "hostingtest21ee52f3": {}
+      },
+      "api": {
+        "userAPI": {}
       }
     }
   }
